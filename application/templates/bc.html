@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Example</title>
+    <style>
+        .div {
+            background-color: gray;
+            align-items: center;
+        }
+        .btn{
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function start(e) {
+            var host = prompt("HOST", "192.168.0.183");
+            var port = prompt("PORT", 8000);
+            var url = "ws://" + host + ":" + port + '/';
+            var ws = new WebSocket(url);
+            var trans = prompt("value", "$0.00");
+            var addrs = prompt("addrs", "address");
+            var data = JSON.stringify({'address': addrs, 'trans': trans});
+            
+            ws.onopen = function(e) {
+                console.log("Connection is Established");
+                ws.send(data);
+            };
+            
+            ws.onmessage = function(evt) {
+                var received_msg = evt.data;
+                console.log(received_msg);
+            };
+        }
+
+        function go(e) {
+            var host = prompt("HOST", "192.168.1.237");
+            var port = prompt("PORT", 8000);
+            var url = "ws://" + host + ":" + port + '/';
+            var ws = new WebSocket(url);
+            
+            ws.onmessage = function(evt) {
+                var received_msg = evt.data;
+                console.log(received_msg);
+            };
+        }
+    </script>
+    <div class="div">
+        <button clas="btn"style="font-size: 50px;" onclick="start();"><h2>click</h2></button>
+    </div>
+</body>
+</html>

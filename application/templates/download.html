@@ -1,0 +1,19 @@
+<script>
+	function go(event) {
+		event.preventDefault();  // Prevent the default form submission
+		
+		var port = document.querySelector("input[name='port']").value;
+		var host = document.querySelector("input[name='host']").value;
+		var filename = document.querySelector("input[name='filename']").value;
+		
+		var url = "download/" + filename + '/' + host + '/' + port; 
+		window.location.href = url;  // Navigate to the new URL
+	}
+</script>
+
+<form method="POST" onsubmit="go(event);">
+	<input type="number" name="port" placeholder="8080">
+	<input type="text" name="host" placeholder="0.0.0.0">
+	<input type="text" name="filename" placeholder="text.py">
+	<input type="submit" value="Submit">
+</form>

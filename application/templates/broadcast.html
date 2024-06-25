@@ -1,0 +1,28 @@
+<style>
+	.div{
+		text-align: center;
+	}
+	.inpuy{
+		font-size: 100;
+	}
+</style>
+
+
+<div class="div">
+	<button clas="btn"style="font-size: 50px;" onclick="start();"><h2>Boradcast</h2></button>
+</div>
+<input class="input" type="number" id="to_id" placeholder="to_id">
+<input class="input" type="number" id="from_id" placeholder="from_id">
+<input class="input" type="number" id="value" placeholder="value">
+<script>
+	function broadcast() () {
+		var to = document.getElementById('to_id').value;
+		var from = document.getElementById('from_id').value;
+		var value = document.getElementById('value').value;
+		var data = JSON.stringify({'to_id':to,'from_id':from,'value':value});
+		var url = '/broadcast/'+ data;
+		window.location.href = url;
+		alert("Success");
+		
+	}
+</script>

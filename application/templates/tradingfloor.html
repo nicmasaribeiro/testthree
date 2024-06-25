@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2P WebSocket Chat</title>
+</head>
+<body>
+    <h1>P2P WebSocket Chat</h1>
+    <div>
+        <label for="server">Server:</label>
+        <input type="text" id="server" placeholder="ws://localhost:5050">
+        <button onclick="connect()">Connect</button>
+    </div>
+    <div>
+        <textarea id="messages" rows="10" cols="50" readonly></textarea>
+    </div>
+    <div>
+        <input type="text" id="message" placeholder="Enter message">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        let websocket;
+
+        function connect() {
+            const server = document.getElementById('server').value;
+            websocket = new WebSocket(server);
+
+            websocket.onopen = function(event) {
+                document.getElementById('messages').value += "Connected to " + server + "\n";
+            };
+
+            websocket.onmessage = function(event) {
+                document.getElementById('messages').value += "Received: " + event.data + "\n";
+            };
+
+            websocket.onclose = function(event) {
+                document.getElementById('messages').value += "Disconnected from " + server + "\n";
+            };
+
+            websocket.onerror = function(event) {
+                document.getElementById('messages').value += "Error: " + event.data + "\n";
+            };
+        }
+
+        function sendMessage() {
+            const message = document.getElementById('message').value;
+            websocket.send(message);
+            document.getElementById('messages').value += "Sent: " + message + "\n";
+            document.getElementById('message').value = "";
+        }
+    </script>
+</body>
+</html>

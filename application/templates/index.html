@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>WebScokets</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script> <!-- include socket.io client side script -->
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				margin: 0;
+				padding: 0;
+			}
+			.navbar {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				background-color: #333;
+				padding: 10px 20px;
+			}
+			.navbar a {
+				color: white;
+				text-decoration: none;
+				padding: 14px 20px;
+				text-align: center;
+			}
+			.navbar a:hover {
+				background-color: #ddd;
+				color: black;
+			}
+			.navbar .logo {
+				font-size: 24px;
+				font-weight: bold;
+			}
+			.navbar .nav-links {
+				display: flex;
+				justify-content: space-around;
+				width: 50%;
+			}
+			@media (max-width: 600px) {
+				.navbar .nav-links {
+					flex-direction: column;
+					width: 100%;
+				}
+				.navbar a {
+					text-align: left;
+					padding: 10px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		
+		<h1>WebSockets Home</h1>
+	
+		<div class="navbar">
+			<div class="logo">
+				MyLogo
+			</div>
+			<div class="nav-links">
+				<a href="/">Home</a>
+				<a href="/transact">Transact</a>
+				<a href="/get/transactions">Transactions</a>
+				<a href="/users">Users</a>
+				<a href="/signup">Signup</a>
+				<a href="/login">Login</a>
+			</div>
+		</div>
+<script>
+	function wss () {
+		var port = Number(prompt("port", "8080"));
+		var url = "/wss/"+port;
+		window.location.href = url;
+	}
+	
+	function start_websocket () {
+		var port = Number(prompt("port", "8080"));
+		var url = "/atd/"+port;
+		window.location.href = url;
+	}
+	
+	function connect_websocket () {
+		var port = Number(prompt("port", "8080"));
+		var url = "/ctd/"+port;
+		window.location.href = url;
+	}
+	
+	function broadcast () {
+		var to = prompt("to_id", ".....");//document.getElementById('to_id').value;
+		var from = prompt("from_id", ".....");//document.getElementById('from_id').value;
+		var value = Number(prompt("value", "$0.00")); //#document.getElementById('value').value;
+		var data = JSON.stringify({'to_id':to,'from_id':from,'value':value});
+		var url = '/broadcast/' + data;
+		window.location.href = url;
+	}
+	
+</script>
+		
+		<div class="my_first_div" onclick="wss();"><button>WSS</button></div>
+		<div class="my_first_div" onclick="start_websocket();"><button><h3>Start</h3></button></div>
+		<div class="my_first_div" onclick="connect_websocket();"><button><h3>Connect</h3></button></div>
+		<div class="my_first_div" onclick="broadcast();"><button><h3>Broadcast</h3></button></div>
+
+
+		
+	</body>
+</html>
